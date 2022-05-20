@@ -12,5 +12,5 @@ Then clone this with git clone git@github.com:NoraArcher/AmateurSteg-2022a.git
 Then you can open FilterRotation.pde with processing from the repository.
 Please add the image you want to investigate to the processing file and rename it YourImage.png
 
-Link to (PRESENTATION.md)[https://github.com/NoraArcher/AmateurSteg-2022a/blob/c424e0e795687ddd2c9d36eaba14323c02063ef3/PRESENTATION.md]
-Link to (HOMEWORK.md)[https://github.com/NoraArcher/AmateurSteg-2022a/blob/c424e0e795687ddd2c9d36eaba14323c02063ef3/HOMEWORK.md]
+Link to [PRESENTATION.md](https://github.com/NoraArcher/AmateurSteg-2022a/blob/c424e0e795687ddd2c9d36eaba14323c02063ef3/PRESENTATION.md)
+Link to [HOMEWORK.md](https://github.com/NoraArcher/AmateurSteg-2022a/blob/c424e0e795687ddd2c9d36eaba14323c02063ef3/HOMEWORK.md)
