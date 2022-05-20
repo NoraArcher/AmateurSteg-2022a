@@ -20,3 +20,7 @@ void setup() {
     PImage img = loadImage("YourImage.png");
     img.loadPixels();
 }
+
+void normal() {
+    image(img, 0, 0);
+}
