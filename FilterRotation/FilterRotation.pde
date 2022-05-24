@@ -15,6 +15,13 @@
 import java.util.*;
 import java.lang.*;
 
+//Button
+int bx = 810; int by = 0;
+int bSize = 90;
+color bColor = color(255); color bHighlight = color(235);
+boolean bOver = false;
+
+
 int currentF = 0;
 PImage img;
 
@@ -22,6 +29,8 @@ void setup() {
     //int i = Integer.parseInt(args[0]);
     //int j = Integer.parseInt(args[1]);
     //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size? 
+    
+    
     size(900, 600);
     img = loadImage("YourImage.png");
     img.loadPixels();
@@ -31,7 +40,7 @@ void planes(int channel, int num) {
   image(img, 0, 0);
 }
 
-void isolate(int channel, int num) {
+void isolate(int channel) {
   image(img, 0, 0);
 }
 
@@ -40,6 +49,8 @@ void xoranio() {
 }
 
 void draw() {
+  update();
+  
   //if button is pressed
       //currentF += 1
   if (currentF == 0) {
@@ -50,9 +61,44 @@ void draw() {
     int channel = (currentF - 2) / 8;
     int num = (currentF - 2) % 8;
     planes(channel, num);
-  } else if (currentF >= 34 && currentF < 66) {
-    int channel = (currentF - 34) / 8;
-    int num = (currentF - 34) % 8;
-    isolate(channel, num);
+  } else if (currentF >= 34 && currentF < 38) {
+    int channel = (currentF - 34) % 8;
+    isolate(channel);
+  }
+  
+  if (bOver) {
+    fill(bHighlight);
+  } else {
+    fill(bColor);
+  }
+  stroke(0);
+  rect(bx, by, bSize, bSize);
+  
+  if (currentF > 38) {
+    currentF = 0;
+  }
+}
+
+
+void update() {
+  if ( overButt(bx, by, bSize, bSize) ) {
+    bOver = true;
+  } else {
+    bOver = false;
+  }
+}
+
+void mousePressed() {
+  if (bOver) {
+    currentF += 1;
+  }
+}
+
+boolean overButt(int x, int y, int width, int height)  {
+  if (mouseX >= x && mouseX <= x+width && 
+      mouseY >= y && mouseY <= y+height) {
+    return true;
+  } else {
+    return false;
   }
 }
