@@ -37,6 +37,13 @@ void setup() {
 }
 
 void planes(int channel, int num) {
+  ArrayList<Integer> asingledudewhoislonely = new ArrayList<>();
+  int numPixels = img.width * img.height;
+  for (int i = 0; i < numPixels; i++) {
+    color c = img.pixels[i];
+    int red = (int)red(c);
+    red = 1 * red;
+  }
   image(img, 0, 0);
 }
 
