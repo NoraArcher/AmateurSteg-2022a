@@ -21,7 +21,6 @@ int bSize = 50;
 color bColor = color(190); color bHighlight = color(175);
 boolean bOver = false;
 
-
 int currentF = 0;
 PImage img;
 PImage newie;
@@ -64,7 +63,16 @@ void isolate(int channel) {
 }
 
 void xoranio() {
-  image(img, 0, 0);
+  int numPixels = img.width * img.height;
+  for (int i = 0; i < numPixels; i++) {
+    color c = img.pixels[i];
+    int red = ((int)red(c) ^ 255);
+    int green = ((int)green(c) ^ 255);
+    int blue = ((int)blue(c) ^ 255);
+    newie.pixels[i] = color(red, green, blue);
+  }
+  newie.updatePixels();
+  newie.save("modifiedImage.png");
 }
 
 void draw() {
@@ -73,6 +81,7 @@ void draw() {
     image(img, 0, 0);
   } else if (currentF == 1) {
     xoranio();
+    image(newie, 0, 0);
   } else if (currentF >= 2 && currentF < 34) {
     int channel = (currentF - 2) / 8;
     int num = (currentF - 2) % 8;
@@ -81,6 +90,7 @@ void draw() {
   } else if (currentF >= 34 && currentF < 38) {
     int channel = (currentF - 34) % 8;
     isolate(channel);
+    image(newie, 0, 0);
   }
   
   if (bOver) {
