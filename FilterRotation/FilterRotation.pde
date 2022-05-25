@@ -35,7 +35,52 @@ void setup() {
     img.loadPixels();
     newie = loadImage("YourImage.png");
     newie.loadPixels();
+    
+    textSize(30);
 }
+
+void draw() {
+  update();//for button
+  if (currentF > 38) {
+    currentF = 0;
+  }
+  String display = "Standard";
+  
+  if (currentF == 0) {
+    image(img, 0, 0);
+  } else if (currentF == 1) {
+    xoranio();
+    image(newie, 0, 0);
+    display = "Inverse";
+  } else if (currentF >= 2 && currentF < 34) {
+    int channel = (currentF - 2) / 8;
+    //int num = (currentF - 2) % 8; //this system does least significant bit first
+    int num = Math.abs(7 - ((currentF - 2) % 8)); //this system does most significant bit first
+    planes(channel, num);
+    image(newie, 0, 0);
+    if (channel == 0): display = "Alpha ";
+    if (channel == 1): display = "Red ";
+    if (channel == 2): display = "Green ";
+    if (channel == 3): display = "Blue ";
+    display += "plane " + str(num);
+  } else if (currentF >= 34 && currentF < 38) {
+    int channel = (currentF - 34) % 8;
+    isolate(channel);
+    image(newie, 0, 0);
+  }
+  
+  fill(0,0,0);
+  text(display, 700, 60);
+  
+  if (bOver) {
+    fill(bHighlight);
+  } else {
+    fill(bColor);
+  }
+  stroke(0);
+  rect(bx, by, bSize, bSize/2);
+}
+
 
 void planes(int channel, int num) {
   int numPixels = img.width * img.height;
@@ -74,38 +119,6 @@ void xoranio() {
   newie.updatePixels();
   newie.save("modifiedImage.png");
 }
-
-void draw() {
-  update();//for button
-  if (currentF == 0) {
-    image(img, 0, 0);
-  } else if (currentF == 1) {
-    xoranio();
-    image(newie, 0, 0);
-  } else if (currentF >= 2 && currentF < 34) {
-    int channel = (currentF - 2) / 8;
-    int num = (currentF - 2) % 8;
-    planes(channel, num);
-    image(newie, 0, 0);
-  } else if (currentF >= 34 && currentF < 38) {
-    int channel = (currentF - 34) % 8;
-    isolate(channel);
-    image(newie, 0, 0);
-  }
-  
-  if (bOver) {
-    fill(bHighlight);
-  } else {
-    fill(bColor);
-  }
-  stroke(0);
-  rect(bx, by, bSize, bSize/2);
-  
-  if (currentF > 38) {
-    currentF = 0;
-  }
-}
-
 
 void update() {
   if ( overButt(bx, by, bSize, bSize/2) ) {
