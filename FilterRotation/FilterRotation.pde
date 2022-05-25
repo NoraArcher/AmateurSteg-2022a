@@ -16,14 +16,15 @@ import java.util.*;
 import java.lang.*;
 
 //Button
-int bx = 810; int by = 0;
-int bSize = 90;
-color bColor = color(255); color bHighlight = color(235);
+int bx = 450; int by = 0;
+int bSize = 50;
+color bColor = color(190); color bHighlight = color(175);
 boolean bOver = false;
 
 
 int currentF = 0;
 PImage img;
+PImage newie;
 
 void setup() {
     //int i = Integer.parseInt(args[0]);
@@ -34,17 +35,30 @@ void setup() {
     size(900, 600);
     img = loadImage("YourImage.png");
     img.loadPixels();
+    newie = loadImage("YourImage.png");
+    newie.loadPixels();
 }
 
 void planes(int channel, int num) {
-  ArrayList<Integer> asingledudewhoislonely = new ArrayList<>();
+  //need to add big ifs for channel variance
   int numPixels = img.width * img.height;
   for (int i = 0; i < numPixels; i++) {
     color c = img.pixels[i];
-    int red = (int)red(c);
-    red = 1 * red;
+    int other = (int)(Math.pow(2, num));
+    if (channel == 0){
+      int red = (int)red(c);
+      red = (red & other) >> num;
+    } else if (channel == 1) {
+      int red = (int)red(c);
+      red = (red & other) >> num;
+    } else if (channel == 2) {
+      int red = (int)red(c);
+      red = (red & other) >> num;
+    }
+    newie.pixels[i] = color(red*255);
   }
-  image(img, 0, 0);
+  newie.updatePixels();
+  newie.save("modifiedImage.png");
 }
 
 void isolate(int channel) {
@@ -56,10 +70,7 @@ void xoranio() {
 }
 
 void draw() {
-  update();
-  
-  //if button is pressed
-      //currentF += 1
+  update();//for button
   if (currentF == 0) {
     image(img, 0, 0);
   } else if (currentF == 1) {
@@ -68,6 +79,7 @@ void draw() {
     int channel = (currentF - 2) / 8;
     int num = (currentF - 2) % 8;
     planes(channel, num);
+    image(newie, 0, 0);
   } else if (currentF >= 34 && currentF < 38) {
     int channel = (currentF - 34) % 8;
     isolate(channel);
@@ -79,7 +91,7 @@ void draw() {
     fill(bColor);
   }
   stroke(0);
-  rect(bx, by, bSize, bSize);
+  rect(bx, by, bSize, bSize/2);
   
   if (currentF > 38) {
     currentF = 0;
@@ -88,7 +100,7 @@ void draw() {
 
 
 void update() {
-  if ( overButt(bx, by, bSize, bSize) ) {
+  if ( overButt(bx, by, bSize, bSize/2) ) {
     bOver = true;
   } else {
     bOver = false;
@@ -98,6 +110,7 @@ void update() {
 void mousePressed() {
   if (bOver) {
     currentF += 1;
+    print(currentF);
   }
 }
 
