@@ -29,8 +29,7 @@ PImage newie;
 void setup() {
     //int i = Integer.parseInt(args[0]);
     //int j = Integer.parseInt(args[1]);
-    //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size? 
-    
+    //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size?
     
     size(900, 600);
     img = loadImage("YourImage.png");
@@ -40,22 +39,21 @@ void setup() {
 }
 
 void planes(int channel, int num) {
-  //need to add big ifs for channel variance
   int numPixels = img.width * img.height;
   for (int i = 0; i < numPixels; i++) {
     color c = img.pixels[i];
     int other = (int)(Math.pow(2, num));
     if (channel == 0){
-      int red = (int)red(c);
-      red = (red & other) >> num;
+      channel = (int)alpha(c);
     } else if (channel == 1) {
-      int red = (int)red(c);
-      red = (red & other) >> num;
+      channel = (int)red(c);
     } else if (channel == 2) {
-      int red = (int)red(c);
-      red = (red & other) >> num;
+      channel = (int)green(c);
+    } else if (channel == 3) {
+      channel = (int)blue(c);
     }
-    newie.pixels[i] = color(red*255);
+    channel = (channel & other) >> num;
+    newie.pixels[i] = color(channel*255);
   }
   newie.updatePixels();
   newie.save("modifiedImage.png");
