@@ -68,7 +68,6 @@ void draw() {
     int channel = (currentF - 34) % 8;
     isolate(channel);
     image(newie, 0, 0);
-<<<<<<< HEAD
     if (channel == 0) { display = "Alpha "; }
     if (channel == 1) { display = "Red "; }
     if (channel == 2) { display = "Green "; }
@@ -79,18 +78,6 @@ void draw() {
   fill(255,255,255);
   text(display, 550, 60);
   
-=======
-    if (channel == 0): display = "Alpha";//does seem inefficient I know
-    if (channel == 1): display = "Red";
-    if (channel == 2): display = "Green";
-    if (channel == 3): display = "Blue";
-    display = "Full " + display;
-  }
-
-  fill(0,0,0);
-  text(display, 700, 60);
-
->>>>>>> origin
   if (bOver) {
     fill(bHighlight);
   } else {
