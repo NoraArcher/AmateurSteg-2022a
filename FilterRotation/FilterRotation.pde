@@ -16,7 +16,7 @@ import java.util.*;
 import java.lang.*;
 
 //Button
-int bx = 450; int by = 0;
+int bx = 550; int by = 0;
 int bSize = 50;
 color bColor = color(190); color bHighlight = color(175);
 boolean bOver = false;
@@ -40,6 +40,7 @@ void setup() {
 }
 
 void draw() {
+  background(0,0,0);
   update();//for button
   if (currentF > 38) {
     currentF = 0;
@@ -58,19 +59,24 @@ void draw() {
     int num = Math.abs(7 - ((currentF - 2) % 8)); //this system does most significant bit first
     planes(channel, num);
     image(newie, 0, 0);
-    if (channel == 0): display = "Alpha ";
-    if (channel == 1): display = "Red ";
-    if (channel == 2): display = "Green ";
-    if (channel == 3): display = "Blue ";
+    if (channel == 0) { display = "Alpha "; }
+    if (channel == 1) { display = "Red "; }
+    if (channel == 2) { display = "Green "; }
+    if (channel == 3) { display = "Blue "; }
     display += "plane " + str(num);
   } else if (currentF >= 34 && currentF < 38) {
     int channel = (currentF - 34) % 8;
     isolate(channel);
     image(newie, 0, 0);
+    if (channel == 0) { display = "Alpha "; }
+    if (channel == 1) { display = "Red "; }
+    if (channel == 2) { display = "Green "; }
+    if (channel == 3) { display = "Blue "; }
+    display = "Full " + display;
   }
   
-  fill(0,0,0);
-  text(display, 700, 60);
+  fill(255,255,255);
+  text(display, 550, 60);
   
   if (bOver) {
     fill(bHighlight);
@@ -104,7 +110,28 @@ void planes(int channel, int num) {
 }
 
 void isolate(int channel) {
-  image(img, 0, 0);
+  int numPixels = img.width * img.height;
+  for (int i = 0; i < numPixels; i++) {
+    color c = img.pixels[i];
+    int red = (int)red(c);
+    int blue = (int)blue(c);
+    int green = (int)green(c);
+    int alpha = (int)alpha(c);
+    if (channel == 0) {
+      newie.pixels[i] = color(0, 0, 0, alpha);
+    }
+    else if (channel == 1) {
+      newie.pixels[i] = color(red, 0, 0);
+    }
+    else if (channel == 2) {
+      newie.pixels[i] = color(0, green, 0);
+    }
+    else {
+       newie.pixels[i] = color(0, 0, blue);
+    }
+  }
+  newie.updatePixels();
+  newie.save("modifiedImage.png");
 }
 
 void xoranio() {
