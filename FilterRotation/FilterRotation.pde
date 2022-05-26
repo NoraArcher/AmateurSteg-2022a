@@ -48,7 +48,26 @@ void planes(int channel, int num) {
 }
 
 void isolate(int channel) {
-  image(img, 0, 0);
+  int numPixels = img.width * img.height;
+  for (int i = 0; i < numPixels; i++) {
+    color c = img.pixels[i];
+    int red = (int)red(c);
+    int blue = (int)blue(c);
+    int green = (int)green(c);
+    int alpha = (int)alpha(c);
+    if (channel == 0) {
+      img.pixels[i] = color(0, 0, 0, alpha);
+    }
+    else if (channel == 1) {
+      img.pixels[i] = color(red, 0, 0);
+    }
+    else if (channel == 2) {
+      img.pixels[i] = color(0, green, 0);
+    }
+    else {
+       img.pixels[i] = color(0, 0, blue);
+    }
+  }
 }
 
 void xoranio() {
