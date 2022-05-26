@@ -1,15 +1,15 @@
-//I think we should have a bunch of filters that show yk only the green or only the blue or 
+//I think we should have a bunch of filters that show yk only the green or only the blue or
 //only the red of the image being displayed, and then the draw method would rotate through that
-//if we wanted to be really extra a button could rorate through them so the user has control
+//if we wanted to be really extra a button could rotate through them so the user has control
 
-//we should also have an encoding component, maybe with a separate processing sketch, where you 
+//we should also have an encoding component, maybe with a separate processing sketch, where you
 //can choose a filter to encode in, enter a message, then see the final unfiltered image
-//like the user could pick a number between 1-10, they pick 3 and that's blue, then they enter 
+//like the user could pick a number between 1-10, they pick 3 and that's blue, then they enter
 //"goober" and it displays the original image with the tail end of the blue component of some of the pixels changed to encode that message
 
 //draft project description for google form:
-//We will write a processing program that can display a given image with multiple 'filters' that 
-//isolate the different bits that could be changed, as well as a mirror program that can encode short messages 
+//We will write a processing program that can display a given image with multiple 'filters' that
+//isolate the different bits that could be changed, as well as a mirror program that can encode short messages
 //in different groups of bits so that they will be displayed in a final image.
 
 import java.util.*;
@@ -29,13 +29,13 @@ void setup() {
     //int i = Integer.parseInt(args[0]);
     //int j = Integer.parseInt(args[1]);
     //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size?
-    
     size(900, 600);
+
     img = loadImage("YourImage.png");
     img.loadPixels();
     newie = loadImage("YourImage.png");
     newie.loadPixels();
-    
+
     textSize(30);
 }
 
@@ -46,7 +46,7 @@ void draw() {
     currentF = 0;
   }
   String display = "Standard";
-  
+
   if (currentF == 0) {
     image(img, 0, 0);
   } else if (currentF == 1) {
@@ -68,6 +68,7 @@ void draw() {
     int channel = (currentF - 34) % 8;
     isolate(channel);
     image(newie, 0, 0);
+<<<<<<< HEAD
     if (channel == 0) { display = "Alpha "; }
     if (channel == 1) { display = "Red "; }
     if (channel == 2) { display = "Green "; }
@@ -78,6 +79,18 @@ void draw() {
   fill(255,255,255);
   text(display, 550, 60);
   
+=======
+    if (channel == 0): display = "Alpha";//does seem inefficient I know
+    if (channel == 1): display = "Red";
+    if (channel == 2): display = "Green";
+    if (channel == 3): display = "Blue";
+    display = "Full " + display;
+  }
+
+  fill(0,0,0);
+  text(display, 700, 60);
+
+>>>>>>> origin
   if (bOver) {
     fill(bHighlight);
   } else {
@@ -87,6 +100,7 @@ void draw() {
   rect(bx, by, bSize, bSize/2);
 }
 
+//Filter methods
 
 void planes(int channel, int num) {
   int numPixels = img.width * img.height;
@@ -147,6 +161,8 @@ void xoranio() {
   newie.save("modifiedImage.png");
 }
 
+//Button methods
+
 void update() {
   if ( overButt(bx, by, bSize, bSize/2) ) {
     bOver = true;
@@ -163,7 +179,7 @@ void mousePressed() {
 }
 
 boolean overButt(int x, int y, int width, int height)  {
-  if (mouseX >= x && mouseX <= x+width && 
+  if (mouseX >= x && mouseX <= x+width &&
       mouseY >= y && mouseY <= y+height) {
     return true;
   } else {
