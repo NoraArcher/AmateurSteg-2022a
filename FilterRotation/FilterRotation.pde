@@ -24,6 +24,7 @@ boolean bOver = false;
 int currentF = 0;
 PImage img;
 PImage newie;
+PImage encoded;//draw method!!
 
 void setup() {
     //int i = Integer.parseInt(args[0]);
@@ -162,6 +163,15 @@ void mousePressed() {
   if (bOver) {
     currentF += 1;
     print(currentF);
+  }
+  int numPixels = img.width * img.height;
+  for (int i = 0; i < numPixels; i++) {
+    color c = newie.pixels[i];
+    if (currentF == 0) { c = img.pixels[i]; }
+    int red = (int)red(c);
+    int green = (int)green(c);
+    int blue = (int)blue(c);
+    newie.pixels[i] = color(red, green, blue);
   }
 }
 

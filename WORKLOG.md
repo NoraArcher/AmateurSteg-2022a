@@ -6,4 +6,5 @@
 | May 23rd  | Partner work on the FilterRotation.pde (worked on structure of program)   | Partner work on the FilterRotation.pde (worked on structure of program)  |
 | May 24th  | Made the button  | Started planes method  |
 | May 25th  | Finished planes and xoranio method, got draw/button functional   | Wrote isolate method  |
-| May 26th  | beep beep   | wir lieben Hundertwasser  |
+| May 26th  | Donated blood, merged branches   | wProof-read code  |
+| May 27th  | beep beep   | wir lieben Hundertwasser  |
