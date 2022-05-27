@@ -164,15 +164,6 @@ void mousePressed() {
     currentF += 1;
     print(currentF);
   }
-  int numPixels = img.width * img.height;
-  for (int i = 0; i < numPixels; i++) {
-    color c = newie.pixels[i];
-    if (currentF == 0) { c = img.pixels[i]; }
-    int red = (int)red(c);
-    int green = (int)green(c);
-    int blue = (int)blue(c);
-    newie.pixels[i] = color(red, green, blue);
-  }
 }
 
 boolean overButt(int x, int y, int width, int height)  {
