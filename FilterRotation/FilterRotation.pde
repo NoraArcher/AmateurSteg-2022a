@@ -175,3 +175,10 @@ boolean overButt(int x, int y, int width, int height)  {
     return false;
   }
 }
+//Printing Press method
+void printPress(int count) {
+    String l = (char(65)) + ".png";
+    PImage letter = loadImage(l);
+    letter.loadPixels();
+    color c = letter.pixels[count];
+}
