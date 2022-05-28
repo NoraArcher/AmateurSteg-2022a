@@ -18,7 +18,7 @@ import java.lang.*;
 //Button
 int bx, by;
 int bSize = 50;
-color bColor = color(255,0,85); color bHighlight = color(204,0,68);
+color bColor = color(250,0,15); color bHighlight = color(215,0,8);
 boolean bOver = false;
 
 int currentF = 0;
@@ -30,20 +30,20 @@ void setup() {
     //int i = Integer.parseInt(args[0]);
     //int j = Integer.parseInt(args[1]);
     //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size?
-    size(1000, 600);
+    size(950, 600);
     bx = width - 55;
     by = height - 30;
 
-    img = loadImage("dark.png");
+    img = loadImage("YourImage.png");
     img.loadPixels();
-    newie = loadImage("dark.png");
+    newie = loadImage("YourImage.png");
     newie.loadPixels();
 
     textSize(30);
 }
 
 void draw() {
-  background(0,180,80);
+  background(0,50,80);
   update();//for button
   if (currentF > 38) {
     currentF = 0;
@@ -78,7 +78,7 @@ void draw() {
     display = "Full " + display;
   }
   
-  fill(240,0,85);
+  fill(250,0,15);
   text(display, 5, height-6);
   
   if (bOver) {
