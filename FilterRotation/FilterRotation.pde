@@ -16,9 +16,9 @@ import java.util.*;
 import java.lang.*;
 
 //Button
-int bx = 550; int by = 0;
+int bx, by;
 int bSize = 50;
-color bColor = color(190); color bHighlight = color(175);
+color bColor = color(255,0,85); color bHighlight = color(204,0,68);
 boolean bOver = false;
 
 int currentF = 0;
@@ -30,18 +30,20 @@ void setup() {
     //int i = Integer.parseInt(args[0]);
     //int j = Integer.parseInt(args[1]);
     //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size?
-    size(900, 600);
+    size(1000, 600);
+    bx = width - 55;
+    by = height - 30;
 
-    img = loadImage("YourImage.png");
+    img = loadImage("dark.png");
     img.loadPixels();
-    newie = loadImage("YourImage.png");
+    newie = loadImage("dark.png");
     newie.loadPixels();
 
     textSize(30);
 }
 
 void draw() {
-  background(0,0,0);
+  background(0,180,80);
   update();//for button
   if (currentF > 38) {
     currentF = 0;
@@ -76,8 +78,8 @@ void draw() {
     display = "Full " + display;
   }
   
-  fill(255,255,255);
-  text(display, 550, 60);
+  fill(240,0,85);
+  text(display, 5, height-6);
   
   if (bOver) {
     fill(bHighlight);
@@ -95,17 +97,16 @@ void planes(int channel, int num) {
   for (int i = 0; i < numPixels; i++) {
     color c = img.pixels[i];
     int other = (int)(Math.pow(2, num));
-    if (channel == 0){
-      channel = (int)alpha(c);
-    } else if (channel == 1) {
-      channel = (int)red(c);
+    int beet = (int)alpha(c);
+    if (channel == 1) {
+      beet = (int)red(c);
     } else if (channel == 2) {
-      channel = (int)green(c);
+      beet = (int)green(c);
     } else if (channel == 3) {
-      channel = (int)blue(c);
+      beet = (int)blue(c);
     }
-    channel = (channel & other) >> num;
-    newie.pixels[i] = color(channel*255);
+    beet = (beet & other) >> num;
+    newie.pixels[i] = color(beet*255);
   }
   newie.updatePixels();
   newie.save("modifiedImage.png");
@@ -162,7 +163,7 @@ void update() {
 void mousePressed() {
   if (bOver) {
     currentF += 1;
-    print(currentF);
+    //print(currentF);
   }
 }
 
