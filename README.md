@@ -10,6 +10,6 @@ Please add the image you want to investigate to FilterRotation/data and rename i
 
 *Please note that if the image goes beyond the set screen size you can simply adjust the code directly with little impact on functionality, except be sure to change button placement as well at the top of the code.*
 
-Link to [PRESENTATION.md](https://github.com/NoraArcher/AmateurSteg-2022a/blob/c424e0e795687ddd2c9d36eaba14323c02063ef3/PRESENTATION.md)
+Link to [PRESENTATION.md](https://github.com/NoraArcher/AmateurSteg-2022a/blob/main/PRESENTATION.md)
 
-Link to [HOMEWORK.md](https://github.com/NoraArcher/AmateurSteg-2022a/blob/c424e0e795687ddd2c9d36eaba14323c02063ef3/HOMEWORK.md)
+Link to [HOMEWORK.md](https://github.com/NoraArcher/AmateurSteg-2022a/blob/main/HOMEWORK.md)
