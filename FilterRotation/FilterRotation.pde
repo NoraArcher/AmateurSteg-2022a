@@ -18,7 +18,7 @@ import java.lang.*;
 //Button
 int bx, by;
 int bSize = 50;
-color bColor = color(250,0,15); color bHighlight = color(215,0,8);
+color bColor = color(150,0,15); color bHighlight = color(150,0,8);
 boolean bOver = false;
 
 int currentF = 0;
@@ -44,7 +44,7 @@ void setup() {
 }
 
 void draw() {
-  background(0,50,80);
+  background(0,51,0);
   update();//for button
   if (currentF > 38) {
     currentF = 0;
@@ -183,9 +183,39 @@ boolean overButt(int x, int y, int width, int height)  {
   and that would require running two programs. the individual letters could work better with the user just 
   more leg work for you
 */
-void printPress(int count) {
-    String l = (char(65)) + ".png";
-    PImage letter = loadImage(l);
-    letter.loadPixels();
-    color c = letter.pixels[count];
+
+void keyPressed(){
+  int count = 0;
+  while (write)
+    if (key == char(13)){
+      write = false;
+    }
+    else if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
+       String l = "/FilterRotation/Printingpress/" + key + ".png";
+       PImage letter = loadImage(l);
+       letter.loadPixels();
+       for (int i = 0; i < 20; i++){
+         for (int j = 0; j < 20; j++) {
+             color c = letter.pixels[j+i*20];
+             //colors of text
+             int red = (int)red(c);
+             int green = (int)green(c);
+             int blue = (int)blue(c);
+         
+             //colors of image
+             color o = newie.pixels[j+i*20]; 
+             int oreo = (int)red(o);
+             int ogreen = (int)green(o);
+             int oblue = (int)blue(o);
+             
+             //bitwise or
+             int nreo = oreo | red;
+             int ngreen = ogreen | green;
+             int nblue = oblue | blue;
+             newie.pixels[i] = color(nreo, ngreen, nblue);
+         }
+       }
+       
+      count++;
+    } 
 }
