@@ -25,6 +25,7 @@ int currentF = 0;
 PImage img;
 PImage newie;
 PImage encoded;//draw method!!
+boolean write;
 
 void setup() {
     //int i = Integer.parseInt(args[0]);
@@ -33,7 +34,7 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-
+    write = false;
     img = loadImage("YourImage.png");
     img.loadPixels();
     newie = loadImage("YourImage.png");
@@ -176,9 +177,16 @@ boolean overButt(int x, int y, int width, int height)  {
   }
 }
 //Printing Press method
+/*
+  instead of putting letter images together you could print the phrase from a text file onto a screen, 
+  save frame, and then apply that to the base image. only issue is the frame would have to be of set size 
+  and that would require running two programs. the individual letters could work better with the user just 
+  more leg work for you
+*/
 void printPress(int count) {
     String l = (char(65)) + ".png";
     PImage letter = loadImage(l);
     letter.loadPixels();
     color c = letter.pixels[count];
+    int (int)
 }
