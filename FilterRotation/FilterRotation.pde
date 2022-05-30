@@ -186,22 +186,31 @@ boolean overButt(int x, int y, int width, int height)  {
 
 void keyPressed(){
   int count = 0;
+  System.out.println(count);
+  if (key == char(10)) {
+      write = true;
+      System.out.println("became true");
+  }
   while (write)
-    if (key == char(13)){
+    key;
+    if (key == char(10)){
       write = false;
+      System.out.println("became false");
     }
     else if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
-       String l = "/FilterRotation/Printingpress/" + key + ".png";
-       PImage letter = loadImage(l);
+       String l = key + ".png";
+       PImage letter = loadImage("/Printingpress/" + l);
        letter.loadPixels();
+       letter.save("donkey" + count);
+       System.out.println("prints");
        for (int i = 0; i < 20; i++){
          for (int j = 0; j < 20; j++) {
-             color c = letter.pixels[j+i*20];
+             color c = letter.pixels[j+i*423];
              //colors of text
              int red = (int)red(c);
              int green = (int)green(c);
              int blue = (int)blue(c);
-         
+             
              //colors of image
              color o = newie.pixels[j+i*20]; 
              int oreo = (int)red(o);
@@ -215,7 +224,6 @@ void keyPressed(){
              newie.pixels[i] = color(nreo, ngreen, nblue);
          }
        }
-       
       count++;
     } 
 }
