@@ -188,5 +188,4 @@ void printPress(int count) {
     PImage letter = loadImage(l);
     letter.loadPixels();
     color c = letter.pixels[count];
-    int (int)
 }
