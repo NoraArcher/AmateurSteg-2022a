@@ -184,6 +184,7 @@ boolean overButt(int x, int y, int width, int height)  {
   more leg work for you
 */
 
+
 void keyPressed(){
   int count = 0;
   System.out.println(count);
@@ -191,8 +192,8 @@ void keyPressed(){
       write = true;
       System.out.println("became true");
   }
-  while (write)
-    key;
+  while (write) {
+    //key;
     if (key == char(10)){
       write = false;
       System.out.println("became false");
@@ -225,5 +226,6 @@ void keyPressed(){
          }
        }
       count++;
-    } 
+    }
+  }
 }
