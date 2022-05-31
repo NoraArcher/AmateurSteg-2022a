@@ -24,7 +24,7 @@ and also display text to signify what viewing option is being presented.
 It's quite simple! Just click the button to try out different viewing options and discover
 if there's a flag embedded in the image file. You must add an image called "YourImage.png" for
 the program to work. Keep in mind also that the program only supports images with the dimensions
-(950, 600) unless the user wants a cropped image. 
+(950, 600) or smaller, unless the user wants a cropped image. 
 
 ## Why Is This Tool Useful?
 It's great for finding flags! These stegsolve tools are really useful for deducing clues that might
