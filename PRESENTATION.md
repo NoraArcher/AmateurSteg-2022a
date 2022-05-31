@@ -26,6 +26,11 @@ if there's a flag embedded in the image file. You must add an image called "Your
 the program to work. Keep in mind also that the program only supports images with the dimensions
 (950, 600) or smaller, unless the user wants a cropped image. 
 
+## What kind of problems can stegsolve solve?
+In class we looked at hiding numbers that correspond to ASCII at the end of bits, but there
+are other more image-specific ways to hide information. Whole words or QR codes can be written 
+directly onto images, or 
+
 ## Why Is This Tool Useful?
 It's great for finding flags! These stegsolve tools are really useful for deducing clues that might
 be instrumental to a cyber security threat. 
