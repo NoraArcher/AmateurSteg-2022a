@@ -8,4 +8,4 @@
 | May 25th  | Finished planes and xoranio method, got draw/button functional   | Wrote isolate method  |
 | May 26th  | Donated blood, merged branches   | Proof-read code  |
 | May 27th  | Finished the filter tool   | Also helped to finalize 'revealing' tool  |
-| May 28th  | Fixed critical variable error in planes method   | ----  |
+| May 28th  | Fixed critical variable error in planes method   | Worked on the stamping method |
