@@ -25,7 +25,7 @@ int currentF = 0;
 PImage img;
 PImage newie;
 PImage encoded;//draw method!!
-boolean write;
+//boolean write;
 
 void setup() {
     //int i = Integer.parseInt(args[0]);
@@ -34,7 +34,7 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    write = false;
+    //write = false;
     img = loadImage("YourImage.png");
     img.loadPixels();
     newie = loadImage("YourImage.png");
@@ -89,6 +89,8 @@ void draw() {
   }
   stroke(0);
   rect(bx, by, bSize, bSize/2);
+  
+  
 }
 
 //Filter methods
@@ -148,13 +150,12 @@ void xoranio() {
     newie.pixels[i] = color(red, green, blue);
   }
   newie.updatePixels();
-  newie.save("modifiedImage.png");
 }
 
 //Button methods
 
 void update() {
-  if ( overButt(bx, by, bSize, bSize/2) ) {
+  if (overButt(bx, by, bSize, bSize/2)) {
     bOver = true;
   } else {
     bOver = false;
@@ -166,6 +167,16 @@ void mousePressed() {
     currentF += 1;
     //print(currentF);
   }
+  /*
+  if (overPic()) {
+      int position = mouseX + mouseY*newie.width;
+      //color c = newie.pixels[position];
+      newie.pixels[position] = color(0, 0, 0);
+      System.out.println("dot dot dot");
+      newie.updatePixels();
+      image(newie, 0, 0);
+  }
+  */
 }
 
 boolean overButt(int x, int y, int width, int height)  {
@@ -176,54 +187,60 @@ boolean overButt(int x, int y, int width, int height)  {
     return false;
   }
 }
+
+boolean overPic() {
+  if (mouseX >= 0 && mouseX <= img.width &&
+      mouseY >= 0 && mouseY <= 426) {
+      return true; 
+  }
+  else {
+    return false;
+  }
+}
+
+
 //Printing Press method
 /*
   instead of putting letter images together you could print the phrase from a text file onto a screen, 
   save frame, and then apply that to the base image. only issue is the frame would have to be of set size 
   and that would require running two programs. the individual letters could work better with the user just 
   more leg work for you
-*/
 
 void keyPressed(){
-  int count = 0;
-  System.out.println(count);
   if (key == char(10)) {
-      write = true;
-      System.out.println("became true");
-  }
-  while (write)
-    key;
-    if (key == char(10)){
-      write = false;
-      System.out.println("became false");
-    }
-    else if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
-       String l = key + ".png";
-       PImage letter = loadImage("/Printingpress/" + l);
-       letter.loadPixels();
-       letter.save("donkey" + count);
-       System.out.println("prints");
-       for (int i = 0; i < 20; i++){
-         for (int j = 0; j < 20; j++) {
-             color c = letter.pixels[j+i*423];
-             //colors of text
-             int red = (int)red(c);
-             int green = (int)green(c);
-             int blue = (int)blue(c);
-             
-             //colors of image
-             color o = newie.pixels[j+i*20]; 
-             int oreo = (int)red(o);
-             int ogreen = (int)green(o);
-             int oblue = (int)blue(o);
-             
-             //bitwise or
-             int nreo = oreo | red;
-             int ngreen = ogreen | green;
-             int nblue = oblue | blue;
-             newie.pixels[i] = color(nreo, ngreen, nblue);
-         }
-       }
+    System.out.println("RAN");
+    PImage letter = loadImage("message.PNG");
+    letter.loadPixels();
+    int numPixels = letter.width * letter.height;
+    int j = 0; //position of file
+    int mul = 1;
+    int count = 0;
+    for (int i = 0; i < numPixels; i++) {
+      if (count == letter.width-1) {
+        j = 424 * mul;
+        mul++;
+        count = 0;
+      }
+      color c = letter.pixels[i];
+      color o = newie.pixels[j];
+      //colors of text
+      int red = (int)red(c);
+      int green = (int)green(c);
+      int blue = (int)blue(c); 
+      if (red != 255) System.out.println("text: " + red + " " + blue + " " + green);       
+      //colors of image
+      int oreo = (int)red(o);
+      int ogreen = (int)green(o);
+      int oblue = (int)blue(o);
+      if (oreo != 255) System.out.println("pic: " + oreo + " " + oblue + " " + ogreen);           
+      //bitwise or
+      int nreo = oreo | red;
+      int ngreen = ogreen | green;
+      int nblue = oblue | blue;
+      newie.pixels[i] = color(nreo, ngreen, nblue);
       count++;
-    } 
+    }
+  }
+  newie.save("encodedImage.png");
 }
+*/
