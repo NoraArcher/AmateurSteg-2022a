@@ -5,15 +5,10 @@
   the processing file and change the two occurrences of "YourImage" in the
   setup() to "dark".
 
-  THM{7h3r3_15_h0p3_1n_7h3_d4rkn355}
-
-
 ## It's never that straightforward
-  This should be an enciphered flag
-
-  flag{c3VwZXJ0cm9vcGVy} --> flag{supertrooper}
+  Please find the flag in problem3.png !
 
 ## Just kidding!
-  Another basic encoded text one, flag{dancing_queen}
+  We named this one really creatively... problem2.png
 
 In a text file, write each flag along with where it was found.
