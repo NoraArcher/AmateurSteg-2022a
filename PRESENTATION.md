@@ -42,3 +42,5 @@ It's great for finding flags! These stegsolve tools might not come up in most
 day-to-day cybersecurity work, but in the idealized dream of cybersecurity work
 that involves international espionage and subliminal messaging, stegsolve could
 mean life or death.
+
+![James Bond looking beyond the surface of the picture](/images/jamesbond.png)
