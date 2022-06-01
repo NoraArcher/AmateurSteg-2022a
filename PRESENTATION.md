@@ -8,29 +8,34 @@
   stegsolv.jar, that lovely program we're all glad to have access to via the
   cyber_resources folder, allows you to look into those 32 pockets for a whole
   image. Essentially, stegsolve reorganizes seemingly insignificant bits of an
-  image to deduce whether there is a hidden message encoded. 
+  image to deduce whether there is a hidden message encoded.
 
 ## How did we make a sister replica of stegsolve?
 With the help of experimentation and the pirate Mr. K, we were able to discover
 the methodologies that stegsolve uses to flesh out images. We divided each option
-of stegsolve into different void methods in Processing 3 and then coded whatever was 
-necessary to achieve our goals. For example, for the XOR option, we essentially XORed 
+of stegsolve into different void methods in Processing 3 and then coded whatever was
+necessary to achieve our goals. For example, for the XOR option, we essentially XORed
 the RGB values with 255 to get our inverse color result. Using a bunch of embedded
 Processing methods, we discovered ways to manually create buttons, which
 allow the user to rotate between certain viewing options (e.g. red planes, XOR, isolate),
-and also display text to signify what viewing option is being presented. 
+and also display text to signify what viewing option is being presented.
+
+We didn't include all of stegsolve's viewing modes, like gray bits and random colour map,
+but we did add planes for the hue, saturation, and brightness of the pixels as well.
+These are not necessarily separate values within the pixel but are different channels
+that processing can express into easy bytes. 
 
 ## How to Use It
 It's quite simple! Just click the button to try out different viewing options and discover
 if there's a flag embedded in the image file. You must add an image called "YourImage.png" for
 the program to work. Keep in mind also that the program only supports images with the dimensions
-(950, 600) or smaller, unless the user wants a cropped image. 
+(950, 600) or smaller, unless the user wants a cropped image.
 
 ## What kind of problems can stegsolve solve?
 In class we looked at hiding numbers that correspond to ASCII at the end of bits, but there
-are other more image-specific ways to hide information. Whole words or QR codes can be written 
-directly onto images, or 
+are other more image-specific ways to hide information. Whole words or QR codes can be written
+directly onto images, or
 
 ## Why Is This Tool Useful?
 It's great for finding flags! These stegsolve tools are really useful for deducing clues that might
-be instrumental to a cyber security threat. 
+be instrumental to a cyber security threat.

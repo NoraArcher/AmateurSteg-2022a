@@ -46,7 +46,7 @@ void setup() {
 void draw() {
   background(0,51,0);
   update();//for button
-  if (currentF > 38) {
+  if (currentF >= 62) {
     currentF = 0;
   }
   String display = "Standard";
@@ -77,6 +77,15 @@ void draw() {
     if (channel == 2) { display = "Green "; }
     if (channel == 3) { display = "Blue "; }
     display = "Full " + display;
+  } else if (currentF >= 38 && currentF < 62) {
+    int channel = (currentF - 38) / 8;
+    int num = Math.abs(7 - ((currentF - 38) % 8));
+    planes2(channel, num);
+    image(newie, 0, 0);
+    if (channel == 0) { display = "Hue "; }
+    if (channel == 1) { display = "Saturation "; }
+    if (channel == 2) { display = "Brightness "; }
+    display += "plane " + str(num);
   }
   
   fill(250,0,15);
@@ -150,6 +159,24 @@ void xoranio() {
     newie.pixels[i] = color(red, green, blue);
   }
   newie.updatePixels();
+}
+
+void planes2(int channel, int num) {
+  int numPixels = img.width * img.height;
+  for (int i = 0; i < numPixels; i++) {
+    color c = img.pixels[i];
+    int other = (int)(Math.pow(2, num));
+    int beet = (int)hue(c);
+    if (channel == 1) {
+      beet = (int)saturation(c);
+    } else if (channel == 2) {
+      beet = (int)brightness(c);
+    }
+    beet = (beet & other) >> num;
+    newie.pixels[i] = color(beet*255);
+  }
+  newie.updatePixels();
+  newie.save("modifiedImage.png");
 }
 
 //Button methods
