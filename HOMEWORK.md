@@ -11,7 +11,7 @@
 ## Who would've thought of this pun
   Try to see if there's anything special in stegosaurus.png
   
-##Challenge! *optional*
+## Challenge! *optional*
   Can you find the flag in problem3.png ?
 
 In a text file, write each flag along with where it was found.
