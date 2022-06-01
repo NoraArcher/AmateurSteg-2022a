@@ -25,7 +25,7 @@ but we did add planes for the hue, saturation, and brightness of the pixels as w
 These are not necessarily separate values within the pixel but are different channels
 that processing can express into easy bytes.
 
-![Pixels are 4D but lets simplify it to cool gradient shapes](/imagez/rgb-vs-hsv.jpg)
+![Pixels are 4D but lets simplify it to cool gradient shapes](/images/rgb-vs-hsv.jpg)
 
 ## How to Use It
 It's quite simple! Just click the button to try out different viewing options and discover
