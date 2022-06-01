@@ -23,7 +23,7 @@ and also display text to signify what viewing option is being presented.
 We didn't include all of stegsolve's viewing modes, like gray bits and random colour map,
 but we did add planes for the hue, saturation, and brightness of the pixels as well.
 These are not necessarily separate values within the pixel but are different channels
-that processing can express into easy bytes. 
+that processing can express into easy bytes.
 
 ## How to Use It
 It's quite simple! Just click the button to try out different viewing options and discover
@@ -32,10 +32,11 @@ the program to work. Keep in mind also that the program only supports images wit
 (950, 600) or smaller, unless the user wants a cropped image.
 
 ## What kind of problems can stegsolve solve?
-In class we looked at hiding numbers that correspond to ASCII at the end of bits, but there
-are other more image-specific ways to hide information. Whole words or QR codes can be written
-directly onto images, or
+In class we looked at hiding numbers that correspond to ASCII in the least significant bits, but there are other more image-specific ways to hide information. Whole words or QR codes can be written directly onto images, and to further obstruct detection such phrases can be
+written in a cursive few machines could ever discern.
 
 ## Why Is This Tool Useful?
-It's great for finding flags! These stegsolve tools are really useful for deducing clues that might
-be instrumental to a cyber security threat.
+It's great for finding flags! These stesolve tools might not come up in most
+day-to-day cybersecurity work, but in the idealized dream of cybersecurity work
+that involves international espionage and subliminal messaging, stegsolve could
+mean life or death.
