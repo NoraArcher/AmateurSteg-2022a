@@ -22,7 +22,7 @@ and also display text to signify what viewing option is being presented.
 
 We didn't include all of stegsolve's viewing modes, like gray bits and random colour map,
 but we did add planes for the hue, saturation, and brightness of the pixels as well.
-These are not necessarily separate values within the pixel but are different channels
+These are not necessarily separate values within the pixel, but are different channels
 that processing can express into easy bytes.
 
 ![Pixels are 4D but lets simplify it to cool gradient shapes](/images/rgb-vs-hsv.jpg)
@@ -34,7 +34,7 @@ the program to work. Keep in mind also that the program only supports images wit
 (950, 600) or smaller, unless the user wants a cropped image.
 
 ## What kind of problems can stegsolve solve?
-In class we looked at hiding numbers that correspond to ASCII in the least significant bits, but there are other more image-specific ways to hide information. Whole words or QR codes can be written directly onto images, and to further obstruct detection such phrases can be
+In class, we looked at hiding numbers that correspond to ASCII in the least significant bits, but there are other more image-specific ways to hide information. Whole words or QR codes can be written directly onto images, and to further obstruct detection such phrases can be
 written in a cursive few machines could ever discern.
 
 ## Why Is This Tool Useful?
