@@ -17,9 +17,9 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("YourImage.png");
+    img = loadImage("stegosaurus.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("YourImage.png");
+    newie = loadImage("stegosaurus.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
@@ -193,8 +193,8 @@ void mousePressed() {
       System.out.println("dot dot dot");
       newie.updatePixels();
      stroke(0);
-     */
   }
+  */
 }
 //if the mouse is over the red button
 boolean overButt(int x, int y, int width, int height)  {
