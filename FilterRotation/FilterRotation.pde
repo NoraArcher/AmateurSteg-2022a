@@ -79,12 +79,14 @@ void draw() {
   stroke(0);
   rect(bx, by, bSize, bSize/2);
   //top button (for encoding)
+  /*
   if (dover) {
     fill(150, 150, 150);
   } else {
     fill(255, 255, 255);
   }
   rect(width - 55, height - 60, bSize, bSize/2);
+  */
 }
 
 //filter methods
@@ -165,7 +167,6 @@ void planes2(int channel, int num) {
 }
 
 //Button methods
-
 void update() {
   if (overButt(bx, by, bSize, bSize/2)) {
     bOver = true;
@@ -179,18 +180,20 @@ void mousePressed() {
     currentF += 1;
     //print(currentF);
   }
+  /*
   if (overStomach()) {
     dover = !dover;
   }
+  */
+  /*
   if (overPic()) {
-    /*
       int position = mouseX + mouseY*newie.width;
       //color c = newie.pixels[position];
       newie.pixels[position] = color(0, 0, 0);
       System.out.println("dot dot dot");
       newie.updatePixels();
-     */
      stroke(0);
+     */
   }
 }
 //if the mouse is over the red button
@@ -202,6 +205,7 @@ boolean overButt(int x, int y, int width, int height)  {
     return false;
   }
 }
+/*
 //if the mouse is over the window of the image. 
 boolean overPic() {
   if (mouseX >= 0 && mouseX <= img.width &&
@@ -212,6 +216,8 @@ boolean overPic() {
     return false;
   }
 }
+*/
+/*
 //if the mouse is over the blue button
 boolean overStomach() {
   if (mouseX >= width - 55 && mouseX <= width - 5 &&
@@ -221,12 +227,13 @@ boolean overStomach() {
     return false;
   }
 }
+*/
+/*
 //if a key is pressed, then the following functions are done. 
 void keyPressed(){
   if (key == 's') {
     newie.save("encodedImage.png");
   }
-  /*
    if (key == char(10)) {
       write = true;
       System.out.println("became true");
@@ -267,5 +274,5 @@ void keyPressed(){
       count++;
     }
   }
-  */
 }
+*/
