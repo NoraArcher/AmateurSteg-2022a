@@ -1,56 +1,36 @@
-//I think we should have a bunch of filters that show yk only the green or only the blue or
-//only the red of the image being displayed, and then the draw method would rotate through that
-//if we wanted to be really extra a button could rotate through them so the user has control
-
-//we should also have an encoding component, maybe with a separate processing sketch, where you
-//can choose a filter to encode in, enter a message, then see the final unfiltered image
-//like the user could pick a number between 1-10, they pick 3 and that's blue, then they enter
-//"goober" and it displays the original image with the tail end of the blue component of some of the pixels changed to encode that message
-
-//draft project description for google form:
-//We will write a processing program that can display a given image with multiple 'filters' that
-//isolate the different bits that could be changed, as well as a mirror program that can encode short messages
-//in different groups of bits so that they will be displayed in a final image.
-
 import java.util.*;
 import java.lang.*;
 
 //Button
 int bx, by;
 int bSize = 50;
-color bColor = color(150,0,15); color bHighlight = color(150,0,8);
+color bColor = color(150,0,30); color bHighlight = color(120,0,0);
 boolean bOver = false;
 
 int currentF = 0;
 PImage img;
 PImage newie;
-PImage encoded;//draw method!!
-//boolean write;
+PImage encoded; //draw method's PImage if necessary
+boolean dover = false;
 
 void setup() {
-    //int i = Integer.parseInt(args[0]);
-    //int j = Integer.parseInt(args[1]);
-    //size(i, j); //should we have the user input the pixel size or should we create a method to automatically detect the pixel size?
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    //write = false;
     img = loadImage("YourImage.png");
     img.loadPixels();
     newie = loadImage("YourImage.png");
     newie.loadPixels();
-
     textSize(30);
 }
 
 void draw() {
-  background(0,51,0);
+  background(0,0,0);
   update();//for button
-  if (currentF >= 62) {
+  if (currentF > 37) {
     currentF = 0;
   }
   String display = "Standard";
-
   if (currentF == 0) {
     image(img, 0, 0);
   } else if (currentF == 1) {
@@ -90,7 +70,7 @@ void draw() {
   
   fill(250,0,15);
   text(display, 5, height-6);
-  
+  //bottom button (for changing filter methods)
   if (bOver) {
     fill(bHighlight);
   } else {
@@ -98,12 +78,16 @@ void draw() {
   }
   stroke(0);
   rect(bx, by, bSize, bSize/2);
-  
-  
+  //top button (for encoding)
+  if (dover) {
+    fill(150, 150, 150);
+  } else {
+    fill(255, 255, 255);
+  }
+  rect(width - 55, height - 60, bSize, bSize/2);
 }
 
-//Filter methods
-
+//filter methods
 void planes(int channel, int num) {
   int numPixels = img.width * img.height;
   for (int i = 0; i < numPixels; i++) {
@@ -124,6 +108,7 @@ void planes(int channel, int num) {
   newie.save("modifiedImage.png");
 }
 
+//isolation of RGB
 void isolate(int channel) {
   int numPixels = img.width * img.height;
   for (int i = 0; i < numPixels; i++) {
@@ -148,7 +133,7 @@ void isolate(int channel) {
   newie.updatePixels();
   newie.save("modifiedImage.png");
 }
-
+//xor function
 void xoranio() {
   int numPixels = img.width * img.height;
   for (int i = 0; i < numPixels; i++) {
@@ -160,7 +145,7 @@ void xoranio() {
   }
   newie.updatePixels();
 }
-
+//planes for hue, saturation, and brightness
 void planes2(int channel, int num) {
   int numPixels = img.width * img.height;
   for (int i = 0; i < numPixels; i++) {
@@ -194,18 +179,21 @@ void mousePressed() {
     currentF += 1;
     //print(currentF);
   }
-  /*
+  if (overStomach()) {
+    dover = !dover;
+  }
   if (overPic()) {
+    /*
       int position = mouseX + mouseY*newie.width;
       //color c = newie.pixels[position];
       newie.pixels[position] = color(0, 0, 0);
       System.out.println("dot dot dot");
       newie.updatePixels();
-      image(newie, 0, 0);
+     */
+     stroke(0);
   }
-  */
 }
-
+//if the mouse is over the red button
 boolean overButt(int x, int y, int width, int height)  {
   if (mouseX >= x && mouseX <= x+width &&
       mouseY >= y && mouseY <= y+height) {
@@ -214,28 +202,32 @@ boolean overButt(int x, int y, int width, int height)  {
     return false;
   }
 }
-
+//if the mouse is over the window of the image. 
 boolean overPic() {
   if (mouseX >= 0 && mouseX <= img.width &&
-      mouseY >= 0 && mouseY <= 426) {
+      mouseY >= 0 && mouseY <= img.height) {
       return true; 
   }
   else {
     return false;
   }
 }
-
-
-//Printing Press method
-/*
-  instead of putting letter images together you could print the phrase from a text file onto a screen, 
-  save frame, and then apply that to the base image. only issue is the frame would have to be of set size 
-  and that would require running two programs. the individual letters could work better with the user just 
-  more leg work for you
-
-
+//if the mouse is over the blue button
+boolean overStomach() {
+  if (mouseX >= width - 55 && mouseX <= width - 5 &&
+      mouseY >= height - 60 && mouseY <= height - 35) {
+    return true;
+  } else {
+    return false;
+  }
+}
+//if a key is pressed, then the following functions are done. 
 void keyPressed(){
-  if (key == char(10)) {
+  if (key == 's') {
+    newie.save("encodedImage.png");
+  }
+  /*
+   if (key == char(10)) {
       write = true;
       System.out.println("became true");
   }
@@ -275,5 +267,5 @@ void keyPressed(){
       count++;
     }
   }
+  */
 }
-*/
