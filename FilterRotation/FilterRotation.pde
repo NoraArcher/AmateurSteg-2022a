@@ -17,9 +17,9 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("stegosaurus.png"); //replace the image name here!
+    img = loadImage("YourImage.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("stegosaurus.png"); //replace the image name here!
+    newie = loadImage("YourImage.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
