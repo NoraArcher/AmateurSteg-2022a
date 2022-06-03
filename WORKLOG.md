@@ -9,3 +9,6 @@
 | May 26th  | Donated blood, merged branches   | Proof-read code  |
 | May 27th  | Finished the filter tool   | Also helped to finalize 'revealing' tool  |
 | May 28th  | Fixed critical variable error in planes method   | Worked on the stamping method |
+| May 29th  | <blank> | Worked on the stamping method | 
+| May 30th  | <blank> | Stamping method wasn't working so decided to do painting method instead |
+| May 31st  |         | Worked on editing miscellaneous information |
