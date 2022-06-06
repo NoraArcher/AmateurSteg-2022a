@@ -10,6 +10,7 @@ Please add the image you want to investigate to FilterRotation/data and rename i
 
 Button Controls:
 The Red Button in the bottom right corner rotates the filter methods ranging from the XOR method to the isolation method. 
+The White/Gray Button on the top of it allows the user to "edit" (draw) on the image. 
 
 *Please note that if the image goes beyond the set screen size you can simply adjust the code directly with little to no impact on functionality.*
 
