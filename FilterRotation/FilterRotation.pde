@@ -11,6 +11,7 @@ int currentF = 0;
 PImage img;
 PImage newie;
 PImage encoded; //draw method's PImage if necessary
+PImage disguised;
 boolean dover = false;
 boolean edit = false;
 
@@ -22,11 +23,14 @@ void setup() {
     img.loadPixels();
     newie = loadImage("YourImage.png"); //replace the image name here!
     newie.loadPixels();
+    encoded = newie;
+    encoded.loadPixels();
+    
     textSize(30);
 }
 
 void draw() {
-  encoded = newie;
+  encoded = newie.get();
   encoded.loadPixels();
   background(0,0,0);
   update();//for button
@@ -36,7 +40,7 @@ void draw() {
     image(encoded, 0, 0);
   }
   else {
-  if (currentF > 37) {
+  if (currentF >= 62) {
     currentF = 0;
   }
   if (currentF == 0) {
@@ -194,13 +198,14 @@ void mousePressed() {
     edit = !edit;
   }
 }
+//THE ACTUAL DRAWING/EDITING METHOD
 void mouseDragged() {
-    if (overPic() && dover) {
-      int position = mouseX + mouseY*newie.width;
-      //color c = newie.pixels[position];
-      newie.pixels[position] = color(0, 0, 0);
-      encoded.updatePixels();
-      image(encoded, 0, 0);
+  if (overPic() && edit) {
+    int position = mouseX + mouseY*newie.width;
+    //color c = newie.pixels[position];
+    newie.pixels[position] = color(0);
+    ori(position);
+    newie.updatePixels();
   }
 }
 //if the mouse is over the red button
@@ -233,24 +238,59 @@ boolean overStomach() {
 }
 
 //Reversing Functions
-void ori() {
-  if (currentF == 1) {
-      
-  } else if (currentF == 2) {
+void ori(int pcor) {
+  //color c = newie.pixels[pcor]; this is just black, 0, always
+  color real = img.pixels[pcor];
+  int a = (int)alpha(real);
+  int r = (int)red(real);
+  int g = (int)green(real);
+  int b = (int)blue(real);
+  int h = (int)hue(real);
+  int s = (int)saturation(real);
+  int v = (int)brightness(real);//value = brightness
+  if (currentF == 1) {//standard
+  } else if (currentF == 2) {//xor
+  } else if (currentF >= 2 && currentF < 34) {//planes
+    int channel = (currentF - 2) / 8;
+    int num = Math.abs(7 - ((currentF - 2) % 8));
+    if (channel == 0) { 
+      a = (1 << num) ^ a;
+      //real normal alpha: 1111 1111
+      //newie color: 0 (plane 2)
+      //disguised alpha: 1111 1011
+    }else if (channel == 1) { 
+      r = (1 << num) ^ r;
+    }else if (channel == 2) { 
+      g = (1 << num) ^ g;
+    }else { 
+      b = (1 << num) ^ b;
+    }
+    disguised.pixels[pcor] = color(r, b, g, a);
+  } else if ((currentF >= 34) && (currentF < 38)) {//isolate
     
-  } else if (currentF >= 2 && currentF < 34) {
-    
-  } else if (currentF >= 34 && currentF < 38) {
-    
-  } else if (currentF >= 38 && currentF < 62) {
-    
+  } else if (currentF >= 38 && currentF < 62) {//more planes
+    //switch color mode
+    colorMode(HSB, 255);
+    int channel = (currentF - 38) / 8;
+    int num = Math.abs(7 - ((currentF - 38) % 8));
+    if (channel == 0) { 
+      h = (1 << num) ^ h;
+    }else if (channel == 1) { 
+      s = (1 << num) ^ s;
+    }else{ 
+      v = (1 << num) ^ v;
+    }
+    disguised.pixels[pcor] = color(h, s, v);
+    //switch color mode back
+    colorMode(RGB, 255);
   }
+  disguised.updatePixels();
 }
 
 //if a key is pressed, then the following functions are done. 
 void keyPressed(){
   if (key == 's') {
-    ori();
-    encoded.save("modifiedImage.png");
+    //ori();
+    disguised.save("secretImage.png");
   }
 }
