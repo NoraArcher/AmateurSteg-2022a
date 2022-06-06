@@ -19,9 +19,9 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("stegosaurus.png"); //replace the image name here!
+    img = loadImage("modifiedImage.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("stegosaurus.png"); //replace the image name here!
+    newie = loadImage("modifiedImage.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
@@ -38,16 +38,16 @@ void draw() {
     image(encoded, 0, 0);
   }
   else {
-  if (currentF > 37) {
+  if (currentF > 61) {
     currentF = 0;
   }
   if (currentF < 0) {
-    currentF = 37;
+    currentF = 61;
   }
   if (currentF == 0) {
     image(img, 0, 0);
     display = "Standard";
-    newie = loadImage("encodedImage.png"); //replace the image here TOO
+    newie = loadImage("modifiedImage.png"); //replace the image here TOO
     newie.loadPixels();
   } else if (currentF == 1) {
     xoranio();
@@ -270,8 +270,8 @@ void ori() {
    int s = (int)saturation(real);
    int v = (int)brightness(real);
   
-    color fake = disguised.pixels[pcor];
-    int al = (int)alpha(fake);
+   color fake = disguised.pixels[pcor];
+   int al = (int)alpha(fake);
    int re = (int)red(fake);
    int gr = (int)green(fake);
    int bl = (int)blue(fake);
@@ -299,11 +299,24 @@ void ori() {
         g = (1 << num) ^ g;
       }
       else if (channel==3) {
+        
         b = (1 << num) ^ b;
       }
        disguised.pixels[pcor] = color(r, g, b, a);
   } else if (currentF >= 34 && currentF < 38) {//isolate
-    
+    int channel = (currentF - 34) % 8;
+    if (channel == 0) {
+      disguised.pixels[pcor] = color(r, g, b, al);
+    }
+    else if (channel == 1) {
+      disguised.pixels[pcor] = color(re, g, b);
+    }
+    else if (channel == 2) {
+      disguised.pixels[pcor] = color(r, gr, b);
+    }
+    else {
+       disguised.pixels[pcor] = color(r, g, bl);
+    }
   } else if (currentF >= 38 && currentF < 62) {//more planes
     //switch color mode
     colorMode(HSB, 255);
@@ -313,7 +326,7 @@ void ori() {
       h = (1 << num) ^ h;
     } else if (channel == 1) { 
       s = (1 << num) ^ s;
-    } else{ 
+    } else { 
       v = (1 << num) ^ v;
     }
     disguised.pixels[pcor] = color(h, s, v);
@@ -328,9 +341,7 @@ void keyPressed(){
     ori();
     disguised.save("encodedImage.png");
   }
-  /*
-  else if (key == 's') {
+  if (key == 's' && !edit) {
     newie.save("modifiedImage.png");
   }
-  */
 }
