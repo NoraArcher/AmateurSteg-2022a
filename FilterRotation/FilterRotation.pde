@@ -80,6 +80,8 @@ void draw() {
   fill(250,0,15);
   text(display, 5, height-6);
   //bottom button (for changing filter methods)
+  fill(255,255,255);
+  textSize(10);
   text("→", 5, height-6);
   if (bOver) {
     fill(bHighlight);
