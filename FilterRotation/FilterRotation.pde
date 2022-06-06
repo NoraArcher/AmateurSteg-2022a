@@ -18,20 +18,19 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("stegosaurus.png"); //replace the image name here!
+    img = loadImage("encodedImage.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("stegosaurus.png"); //replace the image name here!
+    newie = loadImage("encodedImage.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
 
 void draw() {
-  encoded = newie.get();
-  encoded.loadPixels();
   background(0,0,0);
   update();//for button
   String display = "";
   if (edit) {
+    encoded = newie.get();
     textSize(30);
     fill(255,255,255);
     text("Editing Mode", 5, height-6);
@@ -44,7 +43,7 @@ void draw() {
   if (currentF == 0) {
     image(img, 0, 0);
     display = "Standard";
-    newie = loadImage("stegosaurus.png"); //replace the image here TOO
+    newie = loadImage("encodedImage.png"); //replace the image here TOO
     newie.loadPixels();
   } else if (currentF == 1) {
     xoranio();
@@ -238,20 +237,33 @@ boolean overStomach() {
 
 //Reversing Functions
 void ori() {
-  disguised = newie.get();
+  disguised = encoded.get();
   int numPixels = disguised.height * disguised.width;
   //color c = newie.pixels[pcor]; this is just black, 0, always
   for (int pcor = 0; pcor < numPixels; pcor++) {
-    color real = img.pixels[pcor];
-  int a = (int)alpha(real);
-  int r = (int)red(real);
-  int g = (int)green(real);
-  int b = (int)blue(real);
-  int h = (int)hue(real);
-  int s = (int)saturation(real);
-  int v = (int)brightness(real);
+   color real = img.pixels[pcor];
+   int a = (int)alpha(real);
+   int r = (int)red(real);
+   int g = (int)green(real);
+   int b = (int)blue(real);
+   int h = (int)hue(real);
+   int s = (int)saturation(real);
+   int v = (int)brightness(real);
+  
+    color fake = disguised.pixels[pcor];
+    int al = (int)alpha(fake);
+   int re = (int)red(fake);
+   int gr = (int)green(fake);
+   int bl = (int)blue(fake);
+   int hu = (int)hue(fake);
+   int sa = (int)saturation(fake);
+   int vo = (int)brightness(fake);
+  
   if (currentF == 1) {//xor
-       
+    re = re ^ 255;
+    gr = gr ^ 255;
+    bl = bl ^ 255;
+    disguised.pixels[pcor] = color(re,gr,bl);
   } else if (currentF >= 2 && currentF < 34) {//planes
     int channel = (currentF-2)/8;
     int num = Math.abs(7-((currentF-2)%8));
@@ -269,7 +281,7 @@ void ori() {
       else if (channel==3) {
         b = (1 << num) ^ b;
       }
-       disguised.pixels[pcor] = color(r, b, g, a);
+       disguised.pixels[pcor] = color(r, g, b, a);
   } else if (currentF >= 34 && currentF < 38) {//isolate
     
   } else if (currentF >= 38 && currentF < 62) {//more planes
@@ -296,7 +308,9 @@ void keyPressed(){
     ori();
     disguised.save("encodedImage.png");
   }
+  /*
   else if (key == 's') {
     newie.save("modifiedImage.png");
   }
+  */
 }
