@@ -9,5 +9,10 @@
 | May 26th  | Donated blood, merged branches   | Proof-read code  |
 | May 27th  | Finished the filter tool   | Also helped to finalize 'revealing' tool  |
 | May 28th  | Fixed critical variable error in planes method   | Worked on the stamping method |
-| May 29th  | <blank> | Worked on the stamping method | 
-| May 30th  | <blank> | Stamping method wasn't working so decided to do painting method instead |
+| May 29th  | worked on HOMEWORK and README | Worked on the stamping method |
+| May 30th  | Tested stamping method | Stamping method wasn't working so decided to do painting method instead |
+| May 31st  | Finished homework and added more planes (h,s,v) | ... |
+| June 2nd  | Slacked | ... |
+| June 3rd  | ... | ... |
+| June 4th  | ... | ... |
+| June 5th  | Planes section of ori method for encoding | ... |
