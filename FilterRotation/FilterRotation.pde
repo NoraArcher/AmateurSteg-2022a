@@ -6,6 +6,7 @@ int bx, by;
 int bSize = 50;
 color bColor = color(150,0,30); color bHighlight = color(120,0,0);
 boolean bOver = false;
+boolean dOver = false;
 
 int currentF = 0;
 PImage img;
@@ -18,9 +19,9 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("encodedImage.png"); //replace the image name here!
+    img = loadImage("stegosaurus.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("encodedImage.png"); //replace the image name here!
+    newie = loadImage("stegosaurus.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
@@ -39,6 +40,9 @@ void draw() {
   else {
   if (currentF > 37) {
     currentF = 0;
+  }
+  if (currentF < 0) {
+    currentF = 37;
   }
   if (currentF == 0) {
     image(img, 0, 0);
@@ -91,9 +95,17 @@ void draw() {
     fill(bColor);
   }
   rect(bx, by, bSize, bSize/2);
+  if (dOver) {
+    fill(bHighlight);
+  } else {
+    fill(bColor);
+  }
+  rect(bx-50, by, bSize, bSize/2);
+  //for the arrow text
   fill(0, 0, 0);
   textSize(40);
   text("→", 902.5, height-4);
+  text("←", 847.5, height-4);
   //top button (for encoding)
   if (edit) {
     fill(150, 150, 150);
@@ -187,6 +199,11 @@ void update() {
   } else {
     bOver = false;
   }
+  if (overButt(bx-50, by, bSize, bSize/2)) {
+    dOver = true;
+  } else {
+    dOver = false;
+  }
 }
 
 void mousePressed() {
@@ -197,6 +214,9 @@ void mousePressed() {
   if (overStomach()) {
     edit = !edit;
   }
+  if (dOver && !edit) {
+    currentF -= 1;
+  }
 }
 void mouseDragged() {
     if (overPic() && edit) {
@@ -206,7 +226,7 @@ void mouseDragged() {
       image(encoded, 0, 0);
   }
 }
-//if the mouse is over the red button
+//if the mouse is over the red buttons
 boolean overButt(int x, int y, int width, int height)  {
   if (mouseX >= x && mouseX <= x+width &&
       mouseY >= y && mouseY <= y+height) {
