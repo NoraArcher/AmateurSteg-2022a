@@ -234,7 +234,17 @@ boolean overStomach() {
 
 //Reversing Functions
 void ori() {
-  
+  if (currentF == 1) {
+      
+  } else if (currentF == 2) {
+    
+  } else if (currentF >= 2 && currentF < 34) {
+    
+  } else if (currentF >= 34 && currentF < 38) {
+    
+  } else if (currentF >= 38 && currentF < 62) {
+    
+  }
 }
 
 //if a key is pressed, then the following functions are done. 
