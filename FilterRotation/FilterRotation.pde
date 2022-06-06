@@ -19,9 +19,9 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("modifiedImage.png"); //replace the image name here!
+    img = loadImage("YourImage.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("modifiedImage.png"); //replace the image name here!
+    newie = loadImage("YourImage.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
@@ -47,7 +47,7 @@ void draw() {
   if (currentF == 0) {
     image(img, 0, 0);
     display = "Standard";
-    newie = loadImage("modifiedImage.png"); //replace the image here TOO
+    newie = loadImage("YourImage.png"); //replace the image here TOO
     newie.loadPixels();
   } else if (currentF == 1) {
     xoranio();
