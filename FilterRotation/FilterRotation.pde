@@ -18,9 +18,9 @@ void setup() {
     size(950, 600);
     bx = width - 55;
     by = height - 30;
-    img = loadImage("YourImage.png"); //replace the image name here!
+    img = loadImage("stegosaurus.png"); //replace the image name here!
     img.loadPixels();
-    newie = loadImage("YourImage.png"); //replace the image name here!
+    newie = loadImage("stegosaurus.png"); //replace the image name here!
     newie.loadPixels();
     textSize(30);
 }
@@ -44,7 +44,7 @@ void draw() {
   if (currentF == 0) {
     image(img, 0, 0);
     display = "Standard";
-    newie = loadImage("YourImage.png");
+    newie = loadImage("stegosaurus.png"); //replace the image here TOO
     newie.loadPixels();
   } else if (currentF == 1) {
     xoranio();
@@ -125,7 +125,6 @@ void planes(int channel, int num) {
     newie.pixels[i] = color(beet*255);
   }
   newie.updatePixels();
-  newie.save("modifiedImage.png");
 }
 
 //isolation of RGB
@@ -151,7 +150,6 @@ void isolate(int channel) {
     }
   }
   newie.updatePixels();
-  newie.save("modifiedImage.png");
 }
 //xor function
 void xoranio() {
@@ -181,7 +179,6 @@ void planes2(int channel, int num) {
     newie.pixels[i] = color(beet*255);
   }
   newie.updatePixels();
-  newie.save("modifiedImage.png");
 }
 
 //Button methods
@@ -206,7 +203,6 @@ void mouseDragged() {
     if (overPic() && edit) {
       int position = mouseX + mouseY*newie.width;
       newie.pixels[position] = color(0, 0, 0);
-      ori(position);
       encoded.updatePixels();
       image(encoded, 0, 0);
   }
@@ -241,9 +237,12 @@ boolean overStomach() {
 }
 
 //Reversing Functions
-void ori(int pcor) {
+void ori() {
+  disguised = newie.get();
+  int numPixels = disguised.height * disguised.width;
   //color c = newie.pixels[pcor]; this is just black, 0, always
-  color real = img.pixels[pcor];
+  for (int pcor = 0; pcor < numPixels; pcor++) {
+    color real = img.pixels[pcor];
   int a = (int)alpha(real);
   int r = (int)red(real);
   int g = (int)green(real);
@@ -257,18 +256,18 @@ void ori(int pcor) {
     int channel = (currentF-2)/8;
     int num = Math.abs(7-((currentF-2)%8));
     if (channel == 0) {
-      a = (1 << num) | a;
+      a = (1 << num) ^ a;
       //real normal alpha: 1111 1111
       //newie color: 0 (plane 2)
       //disguised alpha: 1111 1011
     } else if (channel == 1) {
-      r = (1 << num) | r;
+      r = (1 << num) ^ r;
     }
-      else if (channel ==2) {
-        g = (1 << num) | g;
+      else if (channel == 2) {
+        g = (1 << num) ^ g;
       }
       else if (channel==3) {
-        b = (1 << num) | b;
+        b = (1 << num) ^ b;
       }
        disguised.pixels[pcor] = color(r, b, g, a);
   } else if (currentF >= 34 && currentF < 38) {//isolate
@@ -280,20 +279,24 @@ void ori(int pcor) {
     int num = Math.abs(7 - ((currentF - 38) % 8));
     if (channel == 0) { 
       h = (1 << num) ^ h;
-    }else if (channel == 1) { 
+    } else if (channel == 1) { 
       s = (1 << num) ^ s;
-    }else{ 
+    } else{ 
       v = (1 << num) ^ v;
     }
     disguised.pixels[pcor] = color(h, s, v);
     //switch color mode back
     colorMode(RGB, 255);
   }
+  }
 }
-
 //if a key is pressed, then the following functions are done. 
 void keyPressed(){
-  if (key == 's') {
-    encoded.save("secretImage.png");
+  if (key == 's' && edit) {
+    ori();
+    disguised.save("encodedImage.png");
+  }
+  else if (key == 's') {
+    newie.save("modifiedImage.png");
   }
 }
