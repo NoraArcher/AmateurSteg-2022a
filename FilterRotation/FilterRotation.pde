@@ -12,6 +12,7 @@ PImage img;
 PImage newie;
 PImage encoded; //draw method's PImage if necessary
 boolean dover = false;
+boolean edit = false;
 
 void setup() {
     size(950, 600);
@@ -25,14 +26,22 @@ void setup() {
 }
 
 void draw() {
+  encoded = newie;
+  encoded.loadPixels();
   background(0,0,0);
   update();//for button
+  String display = "";
+  if (edit) {
+    text("Editing Mode", 5, height-6);
+    image(encoded, 0, 0);
+  }
+  else {
   if (currentF > 37) {
     currentF = 0;
   }
-  String display = "Standard";
   if (currentF == 0) {
     image(img, 0, 0);
+    display = "Standard";
   } else if (currentF == 1) {
     xoranio();
     image(newie, 0, 0);
@@ -67,26 +76,24 @@ void draw() {
     if (channel == 2) { display = "Brightness "; }
     display += "plane " + str(num);
   }
-  
+  }
   fill(250,0,15);
   text(display, 5, height-6);
   //bottom button (for changing filter methods)
+  text("→", 5, height-6);
   if (bOver) {
     fill(bHighlight);
   } else {
     fill(bColor);
   }
-  stroke(0);
   rect(bx, by, bSize, bSize/2);
   //top button (for encoding)
-  /*
   if (dover) {
     fill(150, 150, 150);
   } else {
     fill(255, 255, 255);
   }
   rect(width - 55, height - 60, bSize, bSize/2);
-  */
 }
 
 //filter methods
@@ -176,25 +183,23 @@ void update() {
 }
 
 void mousePressed() {
-  if (bOver) {
+  if (bOver && !edit) {
     currentF += 1;
     //print(currentF);
   }
-  /*
   if (overStomach()) {
     dover = !dover;
+    edit = !edit;
   }
-  */
-  /*
-  if (overPic()) {
+}
+void mouseDragged() {
+    if (overPic() && dover) {
       int position = mouseX + mouseY*newie.width;
       //color c = newie.pixels[position];
       newie.pixels[position] = color(0, 0, 0);
-      System.out.println("dot dot dot");
-      newie.updatePixels();
-     stroke(0);
+      encoded.updatePixels();
+      image(encoded, 0, 0);
   }
-  */
 }
 //if the mouse is over the red button
 boolean overButt(int x, int y, int width, int height)  {
@@ -205,20 +210,17 @@ boolean overButt(int x, int y, int width, int height)  {
     return false;
   }
 }
-/*
 //if the mouse is over the window of the image. 
 boolean overPic() {
-  if (mouseX >= 0 && mouseX <= img.width &&
-      mouseY >= 0 && mouseY <= img.height) {
+  if (mouseX >= 0 && mouseX <= img.width-1 &&
+      mouseY >= 0 && mouseY <= img.height-1) {
       return true; 
   }
   else {
     return false;
   }
 }
-*/
-/*
-//if the mouse is over the blue button
+//if the mouse is over the top button
 boolean overStomach() {
   if (mouseX >= width - 55 && mouseX <= width - 5 &&
       mouseY >= height - 60 && mouseY <= height - 35) {
@@ -227,52 +229,16 @@ boolean overStomach() {
     return false;
   }
 }
-*/
-/*
+
+//Reversing Functions
+void ori() {
+  
+}
+
 //if a key is pressed, then the following functions are done. 
 void keyPressed(){
   if (key == 's') {
-    newie.save("encodedImage.png");
-  }
-   if (key == char(10)) {
-      write = true;
-      System.out.println("became true");
-  }
-  while (write) {
-    //key;
-    if (key == char(10)){
-      write = false;
-      System.out.println("became false");
-    }
-    else if ((key >= 'A' && key <= 'Z') || (key >= 'a' && key <= 'z')) {
-       String l = key + ".png";
-       PImage letter = loadImage("/Printingpress/" + l);
-       letter.loadPixels();
-       letter.save("donkey" + count);
-       System.out.println("prints");
-       for (int i = 0; i < 20; i++){
-         for (int j = 0; j < 20; j++) {
-             color c = letter.pixels[j+i*423];
-             //colors of text
-             int red = (int)red(c);
-             int green = (int)green(c);
-             int blue = (int)blue(c);
-             
-             //colors of image
-             color o = newie.pixels[j+i*20]; 
-             int oreo = (int)red(o);
-             int ogreen = (int)green(o);
-             int oblue = (int)blue(o);
-             
-             //bitwise or
-             int nreo = oreo | red;
-             int ngreen = ogreen | green;
-             int nblue = oblue | blue;
-             newie.pixels[i] = color(nreo, ngreen, nblue);
-         }
-       }
-      count++;
-    }
+    ori();
+    encoded.save("modifiedImage.png");
   }
 }
-*/
