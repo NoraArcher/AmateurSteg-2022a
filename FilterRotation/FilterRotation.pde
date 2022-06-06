@@ -12,7 +12,6 @@ PImage img;
 PImage newie;
 PImage encoded; //draw method's PImage if necessary
 PImage disguised;
-boolean dover = false;
 boolean edit = false;
 
 void setup() {
@@ -23,9 +22,6 @@ void setup() {
     img.loadPixels();
     newie = loadImage("YourImage.png"); //replace the image name here!
     newie.loadPixels();
-    encoded = newie;
-    encoded.loadPixels();
-    
     textSize(30);
 }
 
@@ -36,16 +32,20 @@ void draw() {
   update();//for button
   String display = "";
   if (edit) {
+    textSize(30);
+    fill(255,255,255);
     text("Editing Mode", 5, height-6);
     image(encoded, 0, 0);
   }
   else {
-  if (currentF >= 62) {
+  if (currentF > 37) {
     currentF = 0;
   }
   if (currentF == 0) {
     image(img, 0, 0);
     display = "Standard";
+    newie = loadImage("YourImage.png");
+    newie.loadPixels();
   } else if (currentF == 1) {
     xoranio();
     image(newie, 0, 0);
@@ -82,24 +82,29 @@ void draw() {
   }
   }
   fill(250,0,15);
+  textSize(30);
   text(display, 5, height-6);
   //bottom button (for changing filter methods)
   fill(255,255,255);
-  textSize(10);
-  text("→", 5, height-6);
   if (bOver) {
     fill(bHighlight);
   } else {
     fill(bColor);
   }
   rect(bx, by, bSize, bSize/2);
+  fill(0, 0, 0);
+  textSize(40);
+  text("→", 902.5, height-4);
   //top button (for encoding)
-  if (dover) {
+  if (edit) {
     fill(150, 150, 150);
   } else {
     fill(255, 255, 255);
   }
   rect(width - 55, height - 60, bSize, bSize/2);
+  fill(0, 0, 0);
+  textSize(15);
+  text("edit", 907.5, height - 40);
 }
 
 //filter methods
@@ -194,18 +199,16 @@ void mousePressed() {
     //print(currentF);
   }
   if (overStomach()) {
-    dover = !dover;
     edit = !edit;
   }
 }
-//THE ACTUAL DRAWING/EDITING METHOD
 void mouseDragged() {
-  if (overPic() && edit) {
-    int position = mouseX + mouseY*newie.width;
-    //color c = newie.pixels[position];
-    newie.pixels[position] = color(0);
-    ori(position);
-    newie.updatePixels();
+    if (overPic() && edit) {
+      int position = mouseX + mouseY*newie.width;
+      newie.pixels[position] = color(0, 0, 0);
+      ori(position);
+      encoded.updatePixels();
+      image(encoded, 0, 0);
   }
 }
 //if the mouse is over the red button
@@ -247,26 +250,28 @@ void ori(int pcor) {
   int b = (int)blue(real);
   int h = (int)hue(real);
   int s = (int)saturation(real);
-  int v = (int)brightness(real);//value = brightness
-  if (currentF == 1) {//standard
-  } else if (currentF == 2) {//xor
+  int v = (int)brightness(real);
+  if (currentF == 1) {//xor
+       
   } else if (currentF >= 2 && currentF < 34) {//planes
-    int channel = (currentF - 2) / 8;
-    int num = Math.abs(7 - ((currentF - 2) % 8));
-    if (channel == 0) { 
-      a = (1 << num) ^ a;
+    int channel = (currentF-2)/8;
+    int num = Math.abs(7-((currentF-2)%8));
+    if (channel == 0) {
+      a = (1 << num) | a;
       //real normal alpha: 1111 1111
       //newie color: 0 (plane 2)
       //disguised alpha: 1111 1011
-    }else if (channel == 1) { 
-      r = (1 << num) ^ r;
-    }else if (channel == 2) { 
-      g = (1 << num) ^ g;
-    }else { 
-      b = (1 << num) ^ b;
+    } else if (channel == 1) {
+      r = (1 << num) | r;
     }
-    disguised.pixels[pcor] = color(r, b, g, a);
-  } else if ((currentF >= 34) && (currentF < 38)) {//isolate
+      else if (channel ==2) {
+        g = (1 << num) | g;
+      }
+      else if (channel==3) {
+        b = (1 << num) | b;
+      }
+       disguised.pixels[pcor] = color(r, b, g, a);
+  } else if (currentF >= 34 && currentF < 38) {//isolate
     
   } else if (currentF >= 38 && currentF < 62) {//more planes
     //switch color mode
@@ -284,13 +289,11 @@ void ori(int pcor) {
     //switch color mode back
     colorMode(RGB, 255);
   }
-  disguised.updatePixels();
 }
 
 //if a key is pressed, then the following functions are done. 
 void keyPressed(){
   if (key == 's') {
-    //ori();
-    disguised.save("secretImage.png");
+    encoded.save("secretImage.png");
   }
 }
